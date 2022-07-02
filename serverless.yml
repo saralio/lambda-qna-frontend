@@ -1,15 +1,15 @@
 service: lambda-qna-frontend
 frameworkVersion: '3'
 
-# plugins:
-#   - serverless-python-requirements
-# custom:
-#   pythonRequirements:
-#     slim: true
-#     dockerizePip: true
-#     useDownloadCache: false
-#     useStaticCache: false
-#     fileName: ./requirements/requirements-${env:BRANCH_NAME}.txt
+plugins:
+  - serverless-python-requirements
+custom:
+  pythonRequirements:
+    slim: true
+    dockerizePip: true
+    useDownloadCache: false
+    useStaticCache: false
+    fileName: ./requirements/requirements-${env:BRANCH_NAME}.txt
 
 package:
   individually: true
@@ -28,19 +28,29 @@ provider:
     cors: true
   stage: ${env:MY_ENV}
   region: ${env:MY_REGION}
-
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - dynamodb:Get*
+          Resource: "*"
 
 functions:
   qna:
     handler: handler.send_qna
-    maximumRetryAttempts: 2
+    maximumRetryAttempts: 1
     memorySize: 512
     environment:
       MY_ENV: ${env:MY_ENV}
       MY_REGION: ${env:MY_REGION}
     events:
-      - httpApi:
+      - http:
           path: /qna/{question_id}
           method: get
+          request:
+            parameters:
+              paths:
+                question_id: true
 
 

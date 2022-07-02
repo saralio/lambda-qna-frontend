@@ -24,3 +24,5 @@ var/
 rough
 qna.html
 sample-questions.json
+node_modules
+style.css
