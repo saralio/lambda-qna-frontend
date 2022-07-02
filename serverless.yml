@@ -1,15 +1,15 @@
 service: lambda-qna-frontend
 frameworkVersion: '3'
 
-plugins:
-  - serverless-python-requirements
-custom:
-  pythonRequirements:
-    slim: true
-    dockerizePip: true
-    useDownloadCache: false
-    useStaticCache: false
-    fileName: ./requirements/requirements-${env:BRANCH_NAME}.txt
+# plugins:
+#   - serverless-python-requirements
+# custom:
+#   pythonRequirements:
+#     slim: true
+#     dockerizePip: true
+#     useDownloadCache: false
+#     useStaticCache: false
+#     fileName: ./requirements/requirements-${env:BRANCH_NAME}.txt
 
 package:
   individually: true
@@ -24,12 +24,14 @@ package:
 provider:
   name: aws
   runtime: python3.8
+  httpApi:
+    cors: true
   stage: ${env:MY_ENV}
   region: ${env:MY_REGION}
 
 
 functions:
-  hello:
+  qna:
     handler: handler.send_qna
     maximumRetryAttempts: 2
     memorySize: 512
@@ -40,8 +42,5 @@ functions:
       - httpApi:
           path: /qna/{question_id}
           method: get
-          parameters:
-            paths:
-              question_id: true
 
 
