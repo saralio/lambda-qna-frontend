@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style type="text/css">
+        {% include "./static/styles.css" %}
+    </style>
+</head>
+
+<body>
+
+    <div class="navbar">
+        <a class="title" href="http://saral.club">#RStats Question a Day</a>
+        <ul>
+            <li><a href="https://youtube.com">Youtube</a></li>
+            <li><a href="paypal.com">Donate</a></li>
+            <li><a href="http://saral.club">Sign-Up</a></li>
+        </ul>
+    </div>
+
+
+    <div class="qna">
+        <div class="question-text">
+            <h2>Question</h2>
+            {{ question['question_text'] | qna_markdown }}
+        </div>
+        <div class="options">
+            <h2>Options</h2>
+            <ul>
+                {% for option in question['options'] %}
+                <li><input type="radio" name="option" value="{{ option['text'] }}" id="{{ loop.index }}"
+                        correct-answer="{{ option['is_correct'] }}" />
+                    <label for="{{ loop.index }}">{{ option['text'] | opt_markdown }}</label>
+                </li>
+                {% endfor %}
+            </ul>
+
+            <div class="submit">
+                <input type="button" name="submit" value="Check Answer" id="submit" onclick="checkAnswer()" />
+            </div>
+
+            <div class="correct-answer-text">
+                <p id="correct-ans-text-label">Congrats! Your answer is Correct</p>
+            </div>
+
+            <div class="incorrect-answer-text" id="incorrect-ans-text-label">
+                {{ question['correct_option_text'] | opt_markdown }}
+            </div>
+        </div>
+
+        <div class="answer-text">
+            <h2>Answer</h2>
+            {{ question['answer_text'] | qna_markdown }}
+        </div>
+
+        <div class="links">
+
+            {% if question['has_links'] %}
+            <h3>Read More</h3>
+            <ol type="1">
+                {% for link in question['links'] %}
+                <li><a href="{{ link }}">{{ link }}</a></li>
+                {% endfor %}
+            </ol>
+            {% endif %}
+        </div>
+    </div>
+    <script type="text/javascript">
+        {% include "./static/script.js" %}
+    </script>
+</body>

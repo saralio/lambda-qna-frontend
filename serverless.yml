@@ -19,6 +19,7 @@ package:
     - 'rough.py'
     - 'sample-questions.json'
     - 'README.md'
+    - 'archive'
   
 
 provider:
