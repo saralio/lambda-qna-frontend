@@ -1,5 +1,5 @@
 Markdown==3.3.7
 Pygments==2.8.1
-Jinja2==2.10.1
+Jinja2==2.11.3
 MarkupSafe==2.0.1
 git+https://github.com/saralio/saral-utils.git@develop
