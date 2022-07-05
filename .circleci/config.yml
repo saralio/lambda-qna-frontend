@@ -52,7 +52,7 @@ commands:
       - run: pip3 install -r ./requirements/requirements-<< parameters.branch_name >>.txt
       - run: |
           statusCode=$(sls invoke local -f qna -d '<< parameters.test_data >>' 2>/dev/null | sed 1,2d | python3 -c 'import sys,json; print(json.load(sys.stdin)["statusCode"])')
-          if [[ $statusCode != 200 ]] then 
+          if [[ $statusCode != 200 ]]; then 
             echo $statusCode
             exit 1 
           else 
@@ -70,7 +70,7 @@ commands:
     steps:
       - run: |
           statusCode=$(curl -i 'https://<< parameters.base_url >>/<< parameters.env >>/qna/<< parameters.question_id >>' 2>/dev/null | head -n 1 | cut -d$' ' -f2)
-          if [[ $statusCode != 200 ]] then
+          if [[ $statusCode != 200 ]]; then
             echo deployment failed with statuscode $statusCode
             exit 1
           else 
