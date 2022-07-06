@@ -1,9 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
-html,
-body {
-    overflow-x: hidden;
-}
+/* #TODO: [SAR-78] on mobile the navbar elements are overflowing out of the navbar. Fix it.  */
 
 html {
     height: 100%;
