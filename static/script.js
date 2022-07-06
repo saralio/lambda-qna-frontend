@@ -35,3 +35,16 @@ function checkAnswer() {
     answer.style.visibility = "visible";
     links.style.visibility = "visible";
 }
+
+const linksList = document.querySelector(".linksList")
+let open;
+
+function openMenu() {
+    if (open) {
+        linksList.style.display = "none";
+        open = false;
+    } else if (!open) {
+        linksList.style.display = "block";
+        open = true;
+    }
+}
