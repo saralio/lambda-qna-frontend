@@ -32,6 +32,7 @@ body {
     justify-content: space-between;
     align-items: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    white-space: nowrap;
 }
 
 .navbar a {
@@ -42,6 +43,10 @@ body {
     margin: 0 15px;
     position: relative;
     width: 100%;
+}
+
+.hamburger {
+    display: none;
 }
 
 .navbar ul {
@@ -56,6 +61,57 @@ body {
 
 .navbar a:hover {
     color: rgb(239, 139, 139);
+}
+
+/* media queries for mobile */
+@media screen and (min-width: 801px) {
+    .menu {
+        display: block !important;
+    }
+}
+
+@media screen and (max-width: 800px) {
+
+    .navbar {
+        display: flex;
+        position: relative;
+        margin: 0%;
+        padding: 3%;
+        background-color: #fffcf2;
+        width: 100%;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .hamburger {
+        display: block;
+        border: none;
+        background: none;
+        color: #000;
+        transition: .5s;
+        justify-items: center;
+        margin: 2%;
+        font-size: inherit;
+    }
+
+    .navbar ul {
+        display: none;
+    }
+
+
+    .menu {
+        display: grid;
+        grid-auto-flow: row;
+        justify-content: space-between;
+        justify-items: center;
+        align-items: center;
+    }
+
+    .navbar ul li {
+        padding: 2%;
+    }
+
 }
 
 /* question and answer text properties */
