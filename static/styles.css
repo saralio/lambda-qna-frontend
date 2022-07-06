@@ -76,7 +76,7 @@ body {
         display: flex;
         position: relative;
         margin: 0%;
-        padding: 3%;
+        padding: 3% 0% 3% 0%;
         background-color: #fffcf2;
         width: 100%;
         justify-content: space-between;
@@ -106,6 +106,7 @@ body {
         justify-content: space-between;
         justify-items: center;
         align-items: center;
+        padding-right: 3%;
     }
 
     .navbar ul li {
