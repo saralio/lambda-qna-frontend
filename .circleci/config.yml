@@ -78,7 +78,7 @@ commands:
               baseUrl=$MY_ENV-answer.saral.club
           fi 
           url=$baseUrl/qna/<< parameters.question_id >>
-          statusCode=$(curl -o /dev/null -L "$url" --write-out '%{http_cod}' -s)
+          statusCode=$(curl -o /dev/null -L "$url" --write-out '%{http_code}' -s)
           if [[ $statusCode != 200 ]]; then
             echo deployment failed with statuscode $statusCode
             exit 1
