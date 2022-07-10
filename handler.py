@@ -1,7 +1,7 @@
 import urllib
 from jinja2 import Environment, FileSystemLoader
 from saral_utils.extractor.dynamo import DynamoDB
-from saral_utils.utils.env import get_env_var
+from saral_utils.utils.env import get_env_var, create_env_api_url
 from utils import normalize_links, normalize_options, links_exist, opt_markdown, qna_markdown
 
 
@@ -29,7 +29,8 @@ def send_qna(event, context):
     correct_option_text = 'Uh-oh! Your answer is incorrect. Correct answer is: ' + [
         opt['text'] for opt in options if opt['is_correct']][0]
 
-    tweet_text = f"Check out this question by @data_question on #RStats: https://g2kzt52kkb.execute-api.ap-south-1.amazonaws.com/test/qna/{question_id}\nYou can subscribe at http://saral.club for more such questions."
+    answer_url = create_env_api_url(url=f"answer.saral.club/qna/{question_id}")
+    tweet_text = f"Check out this question by @data_question on #RStats: {answer_url}\n\nYou can subscribe at https://saral.club to get such questions daily in your inbox."
     tweet_encode = urllib.parse.quote_plus(tweet_text)   # type:ignore
 
     template_data = {
