@@ -12,17 +12,17 @@
 <body>
 
     <div class="navbar">
-        <a class="title" href="https://twitter.com/data_question">#RStats Question a Day</a>
+        <a class="title" href="{{ question['navbar_links']['twitter_account'] }}">#RStats Question a Day</a>
         <div class="menu">
             <div class="mobileHeader">
                 <button onclick="openMenu()" class="hamburger">Menu</button>
             </div>
             <ul class="linksList">
-                <li><a href="https://twitter.com/intent/tweet?text=">Share</a></li>
-                <li><a href="https://www.youtube.com/channel/UChZfYRQRGADaLtgdYaB0YBg">Youtube</a></li>
-                <li><a href="https://paypal.me/mohit2013?country.x=IN&locale.x=en_GB">Donate</a></li>
-                <li><a href="http://saral.club">Sign-Up</a></li>
-                <li><a href="https://forms.gle/nNafF5sHS1ezwHoH9">Feedback</a></li>
+                <li><a href="{{ question['navbar_links']['share_tweet'] }}">Share</a></li>
+                <li><a href="{{ question['navbar_links']['youtube'] }}">Youtube</a></li>
+                <li><a href="{{ question['navbar_links']['donate'] }}">Donate</a></li>
+                <li><a href="{{ question['navbar_links']['signup'] }}">Sign-Up</a></li>
+                <li><a href="{{ question['navbar_links']['feedback'] }}">Feedback</a></li>
             </ul>
         </div>
     </div>
