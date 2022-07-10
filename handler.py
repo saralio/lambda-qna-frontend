@@ -33,6 +33,14 @@ def send_qna(event, context):
     tweet_text = f"Check out this question by @data_question on #RStats: {answer_url}\n\nYou can subscribe at https://saral.club to get such questions daily in your inbox."
     tweet_encode = urllib.parse.quote_plus(tweet_text)   # type:ignore
 
+    navbar_links = {}
+    navbar_links['youtube'] = "https://www.youtube.com/channel/UChZfYRQRGADaLtgdYaB0YBg"
+    navbar_links['donate'] = "https://www.buymeacoffee.com/NgFs2zX"
+    navbar_links['feedback'] = "https://forms.gle/nNafF5sHS1ezwHoH9"
+    navbar_links['signup'] = "https://saral.club" #TODO: [SAR-102] add environment dependent signup url
+    navbar_links['twitter_account'] = "https://twitter.com/data_question"
+    navbar_links['share_tweet'] = f"https://twitter.com/intent/tweet?text={tweet_encode}"
+
     template_data = {
         'question_text': question_text,
         'answer_text': explaination_text,
@@ -40,7 +48,7 @@ def send_qna(event, context):
         'links': links,
         'has_links': has_links,
         'correct_option_text': correct_option_text,
-        'tweet':tweet_encode
+        'navbar_links': navbar_links
     }
 
     env = Environment(loader=FileSystemLoader('.'))
