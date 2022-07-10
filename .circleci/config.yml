@@ -28,8 +28,11 @@ commands:
     description: install serverless plugin
     steps:
       - run:
-          name: install serverless plugins
+          name: install python requirement plugins
           command: "sls plugin install --name serverless-python-requirements --stage=$MY_ENV"
+      - run:
+          name: install domain manager plugin
+          command: "sls plugin install --name serverless-domain-manager --stage=$MYE_ENV"
   authenticate_serverless:
     description: authenticate serverles
     steps:
@@ -69,7 +72,13 @@ commands:
     description: test deployed url
     steps:
       - run: |
-          statusCode=$(curl -i '<< parameters.base_url >>/<< parameters.env >>/qna/<< parameters.question_id >>' 2>/dev/null | head -n 1 | cut -d$' ' -f2)
+          if [[ $MY_ENV == 'prod' ]]; then
+              baseUrl=answer.saral.club
+          else
+              baseUrl=$MY_ENV-answer.saral.club
+          fi 
+          url=$baseUrl/qna/<< parameters.question_id >>
+          statusCode=$(curl -o /dev/null -L "$url" --write-out '%{http_cod}' -s)
           if [[ $statusCode != 200 ]]; then
             echo deployment failed with statuscode $statusCode
             exit 1
@@ -78,12 +87,6 @@ commands:
             exit 0
           fi
     parameters:
-      base_url:
-        default: https://g2kzt52kkb.execute-api.ap-south-1.amazonaws.com
-        type: string
-      env:
-        default: test
-        type: string
       question_id:
         default: e9c97986-e33e-4011-b6ff-510f00483fcc
         type: string
@@ -112,8 +115,6 @@ jobs:
       - build_pkg
       - deploy_pkg
       - test_deployment:
-          base_url: https://g2kzt52kkb.execute-api.ap-south-1.amazonaws.com
-          env: *env
           question_id: e9c97986-e33e-4011-b6ff-510f00483fcc
   master:
     executor: base-image
@@ -132,8 +133,6 @@ jobs:
       - build_pkg
       - deploy_pkg
       - test_deployment:
-          base_url: https://g2kzt52kkb.execute-api.ap-south-1.amazonaws.com
-          env: *env
           question_id: e9c97986-e33e-4011-b6ff-510f00483fcc
   feature:
     executor: base-image

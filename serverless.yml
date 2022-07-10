@@ -3,6 +3,7 @@ frameworkVersion: '3'
 
 plugins:
   - serverless-python-requirements
+  - serverless-domain-manager
 custom:
   pythonRequirements:
     slim: true
@@ -10,6 +11,20 @@ custom:
     useDownloadCache: false
     useStaticCache: false
     fileName: ./requirements/requirements-${env:BRANCH_NAME}.txt
+  domain:
+    test: test-answer.saral.club
+    stg: stg-answer.saral.club
+    prod: answer.saral.club
+  customDomain:
+    domainName: ${self:custom.domain.${env:MY_ENV}}
+    certificateName: '*.saral.club'
+    certificateArn: arn:aws:acm:us-east-1:240478177988:certificate/1821ffec-00e3-4d5c-9ec2-a7047e82f0a7
+    stage: ${env:MY_ENV}
+    createRoute53Record: true
+    createRoute53IPv6Record: true
+    endpointType: edge
+    securityType: tls_1_2
+    autoDomain: true
 
 package:
   individually: true
@@ -25,8 +40,6 @@ package:
 provider:
   name: aws
   runtime: python3.8
-  httpApi:
-    cors: true
   stage: ${env:MY_ENV}
   region: ${env:MY_REGION}
   iam:
@@ -47,6 +60,7 @@ functions:
       MY_REGION: ${env:MY_REGION}
     events:
       - http:
+          cors: true
           path: /qna/{question_id}
           method: get
           request:
