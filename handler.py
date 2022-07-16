@@ -46,6 +46,14 @@ def send_qna(event, context):
         'twitter_account_link': sl.twitter_account_link
     }
 
+    navbar_links = {}
+    navbar_links['youtube'] = "https://www.youtube.com/channel/UChZfYRQRGADaLtgdYaB0YBg"
+    navbar_links['donate'] = "https://www.buymeacoffee.com/NgFs2zX"
+    navbar_links['feedback'] = "https://forms.gle/nNafF5sHS1ezwHoH9"
+    navbar_links['signup'] = "https://saral.club" #TODO: [SAR-102] add environment dependent signup url
+    navbar_links['twitter_account'] = "https://twitter.com/data_question"
+    navbar_links['share_tweet'] = f"https://twitter.com/intent/tweet?text={tweet_encode}"
+
     template_data = {
         'question_text': question_text,
         'answer_text': explaination_text,
