@@ -2,6 +2,7 @@ import urllib
 from jinja2 import Environment, FileSystemLoader
 from saral_utils.extractor.dynamo import DynamoDB
 from saral_utils.utils.env import get_env_var, create_env_api_url
+from saral_utils.utils.frontend import ShareLinks
 from utils import normalize_links, normalize_options, links_exist, opt_markdown, qna_markdown
 
 
@@ -29,9 +30,21 @@ def send_qna(event, context):
     correct_option_text = 'Uh-oh! Your answer is incorrect. Correct answer is: ' + [
         opt['text'] for opt in options if opt['is_correct']][0]
 
+    sl = ShareLinks()
     answer_url = create_env_api_url(url=f"answer.saral.club/qna/{question_id}")
-    tweet_text = f"Check out this question by @data_question on #RStats: {answer_url}\n\nYou can subscribe at https://saral.club to get such questions daily in your inbox."
+    signup_url = sl.saral_website_link
+    tweet_text = f"Check out this question by @data_question on #RStats: {answer_url}\n\nYou can subscribe at {signup_url} to get such questions daily in your inbox."
     tweet_encode = urllib.parse.quote_plus(tweet_text)   # type:ignore
+    tweet_link = f'{sl.sharing_link}{tweet_encode}'
+
+    navbar_links = {
+        'signup_url': signup_url,
+        'tweet_share_link': tweet_link,
+        'youtube_link': sl.youtube_link,
+        'donation_link': sl.donation_link,
+        'feedback_link': sl.feedback_link,
+        'twitter_account_link': sl.twitter_account_link
+    }
 
     template_data = {
         'question_text': question_text,
@@ -40,7 +53,7 @@ def send_qna(event, context):
         'links': links,
         'has_links': has_links,
         'correct_option_text': correct_option_text,
-        'tweet':tweet_encode
+        'navbar_links': navbar_links
     }
 
     env = Environment(loader=FileSystemLoader('.'))
@@ -63,5 +76,5 @@ def send_qna(event, context):
             "Access-Control-Allow-Methods": "Get"
         }
     }
-
+    
     return response 
