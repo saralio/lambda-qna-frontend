@@ -12,17 +12,23 @@
 <body>
 
     <div class="navbar">
-        <a class="title" href="{{ question['navbar_links']['twitter_account'] }}">#RStats Question a Day</a>
+        <a class="title" href="{{ question['navbar_links']['twitter_account'] }}" target="_blank"
+            rel="noopener noreferrer">#RStats Question a Day</a>
         <div class="menu">
             <div class="mobileHeader">
                 <button onclick="openMenu()" class="hamburger">Menu</button>
             </div>
             <ul class="linksList">
-                <li><a href="{{ question['navbar_links']['share_tweet'] }}">Share</a></li>
-                <li><a href="{{ question['navbar_links']['youtube'] }}">Youtube</a></li>
-                <li><a href="{{ question['navbar_links']['donate'] }}">Donate</a></li>
-                <li><a href="{{ question['navbar_links']['signup'] }}">Sign-Up</a></li>
-                <li><a href="{{ question['navbar_links']['feedback'] }}">Feedback</a></li>
+                <li><a href="{{ question['navbar_links']['share_tweet'] }}" target="_blank"
+                        rel="noopener noreferrer">Share</a></li>
+                <li><a href="{{ question['navbar_links']['youtube'] }}" target="_blank"
+                        rel="noopener noreferrer">Youtube</a></li>
+                <li><a href="{{ question['navbar_links']['donate'] }}" target="_blank"
+                        rel="noopener noreferrer">Donate</a></li>
+                <li><a href="{{ question['navbar_links']['signup'] }}" target="_blank"
+                        rel="noopener noreferrer">Sign-Up</a></li>
+                <li><a href="{{ question['navbar_links']['feedback'] }}" target="_blank"
+                        rel="noopener noreferrer">Feedback</a></li>
             </ul>
         </div>
     </div>
@@ -68,7 +74,7 @@
             <h3>Read More</h3>
             <ol type="1">
                 {% for link in question['links'] %}
-                <li><a href="{{ link }}">{{ link }}</a></li>
+                <li><a href="{{ link }}" target="_blank" rel="noopener noreferrer">{{ link }}</a></li>
                 {% endfor %}
             </ol>
             {% endif %}
